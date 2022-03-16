@@ -1,5 +1,27 @@
 use std::f64::consts::PI;
 
+pub fn arcpath(
+    cx: i32,
+    cy: i32,
+    r: f64,
+    start: f64,
+    end: f64,
+    orientation: i32,
+    sweep: i32,
+) -> String {
+    format!(
+        "M{} {} A {} {} 1 {} {} {} {}",
+        cx as f64 + start.cos() * r,
+        cy as f64 + start.sin() * r,
+        r,
+        r,
+        orientation,
+        sweep,
+        cx as f64 + end.cos() * r,
+        cy as f64 + end.sin() * r
+    )
+}
+
 pub fn padvalue(min: f64, max: f64, length: f64, value: f64) -> f64 {
     let lengthvalue = (length * (value - min)) / (max - min);
     if lengthvalue < 0.0 {
