@@ -11,11 +11,11 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[function_component(App)]
 fn app_component() -> Html {
-    let counter = use_state(|| 0);
+    let counter = use_state(|| 0.0);
     let onclick = {
         let counter = counter.clone();
         move |_| {
-            let value = *counter + 1;
+            let value = *counter + 1.0;
             counter.set(value);
         }
     };
@@ -23,7 +23,7 @@ fn app_component() -> Html {
     let onclick2 = {
         let counter = counter.clone();
         move |_| {
-            let value = *counter - 1;
+            let value = *counter - 1.0;
             counter.set(value);
         }
     };
@@ -34,7 +34,7 @@ fn app_component() -> Html {
         <button onclick={onclick2}>{ "-1" }</button>
         <p>{ *counter }</p>
         <p>{ (4.5f64).sin() }</p>
-        <CircularGauge value = { Some(*counter as f64) } title = "hello" min = 0.0 max= 20.0 />
+        <CircularGauge value = { Some(*counter) } title = "Temperature" min = 0.0 max= 20.0 />
         </div>
     }
 }
