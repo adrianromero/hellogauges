@@ -36,7 +36,7 @@ fn app_component() -> Html {
         <p>{ *counter }</p>
         <p>{ (4.5f64).sin() }</p>
         <CircularGauge value = { Some(*counter) } title = "Temperature" min = 0.0 max= 20.0 />
-        <ControlGauge value = { Some(*counter) } title = "Temperature2" min = 0.0 max= 20.0 startangle=180.0 endangle=360.0/>
+        <ControlGauge value = { Some(*counter) } title = "Temperature2" min = 0.0 max= 20.0/>
         </div>
     }
 }

@@ -1,6 +1,6 @@
 /*
-MYHELLOIOT
-Copyright (C) 2021 Adrián Romero
+MYHELLOGAUGES
+Copyright (C) 2022 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,8 +24,8 @@ pub struct ControlGaugeProps {
     pub title: String,
     pub min: f64,
     pub max: f64,
-    pub startangle: f64,
-    pub endangle: f64,
+    pub startangle: Option<f64>,
+    pub endangle: Option<f64>,
 }
 
 #[function_component(ControlGauge)]
@@ -33,8 +33,10 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
     let r1 = 45.0;
     let centerx = 100;
     let centery = 80;
+    let startangle = props.startangle.unwrap_or(180.0);
+    let endangle = props.endangle.unwrap_or(360.0);
 
-    let arctotal = props.endangle - props.startangle;
+    let arctotal = endangle - startangle;
     let arctotalrad = r1 * svgdraw::radians(arctotal);
 
     let (html_arc, html_arcrad, formatvalue) = match props.value {
@@ -46,14 +48,14 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                 class="controlgauge-arrow"
                 style={format!(r##"
                     transform: translate({}px, {}px) rotate({}deg);
-                "##, centerx, centery, svgdraw::padvalue(props.min, props.max, arctotal, v) + props.startangle - 270.0)}
+                "##, centerx, centery, svgdraw::padvalue(props.min, props.max, arctotal, v) + startangle - 270.0)}
               />
             },
             html! {
                 <path
                 d={svgdraw::arcpath(centerx, centery, r1,
-                    svgdraw::radians(props.startangle),
-                    svgdraw::radians(props.endangle),
+                    svgdraw::radians(startangle),
+                    svgdraw::radians(endangle),
                     if arctotal > 180.0 { 1 } else { 0 },
                     1)}
                 class="controlgauge-bar"
@@ -79,8 +81,8 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
           d={svgdraw::arcpath(centerx,
             centery,
             r1,
-            svgdraw::radians(props.startangle),
-            svgdraw::radians(props.endangle),
+            svgdraw::radians(startangle),
+            svgdraw::radians(endangle),
             if arctotal > 180.0 { 1 } else { 0 },
             1)}
           class="controlgauge-background"
