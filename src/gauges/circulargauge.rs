@@ -45,8 +45,8 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
                         fill: #00000000;
                         stroke-miterlimit: 0;
                         stroke-dasharray: {} 400;
-                        transform: translate({}px, {}px) rotate(-90deg) translate({}px, {}px);
-                    "##, svgdraw::padvalue(props.min, props.max, r1 * svgdraw::radians(360.0), v), centerx, centery, -centerx, -centery)}
+                        transform: translate({}px, {}px) rotate(-90deg) translate({}px, {}px);"##, 
+                        svgdraw::padvalue(props.min, props.max, r1 * svgdraw::radians(360.0), v), centerx, centery, -centerx, -centery)}
                 />
             },
             v.to_string(),

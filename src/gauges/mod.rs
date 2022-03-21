@@ -18,8 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 mod arc;
 mod circulargauge;
 mod controlgauge;
+mod dialgauge;
 mod svgdraw;
 
 pub use arc::{Arc, ArcProps};
 pub use circulargauge::{CircularGauge, CircularGaugeProps};
 pub use controlgauge::{ControlGauge, ControlGaugeProps};
+pub use dialgauge::{DialGauge, DialGaugeProps};

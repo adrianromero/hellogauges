@@ -6,6 +6,7 @@ mod utils;
 use gauges::Arc;
 use gauges::CircularGauge;
 use gauges::ControlGauge;
+use gauges::DialGauge;
 
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
@@ -45,6 +46,10 @@ fn app_component() -> Html {
                     <Arc start = 0.0 end = 10.0 />
                     <Arc start = 10.0 end = 20.0 r = 1.0 style = "stroke: red;" />
                 </ControlGauge>
+            </div>
+            <div>
+                <DialGauge value = { Some(*counter) } title = "Temperature2" min = 0.0 max = 20.0 step = 0.5 step_label = 2.0>
+                </DialGauge>
             </div>
         </div>
     </div>
