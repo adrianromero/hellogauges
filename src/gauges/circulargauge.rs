@@ -20,6 +20,7 @@ use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct CircularGaugeProps {
+    #[prop_or_default]
     pub value: Option<f64>,
     pub title: String,
     pub min: f64,

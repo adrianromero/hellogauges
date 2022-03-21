@@ -1,6 +1,6 @@
 /*
-MYHELLOIOT
-Copyright (C) 2021 Adrián Romero
+MYHELLOGAUGES
+Copyright (C) 2022 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -16,22 +16,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 .circulargauge-bar {
-  stroke: #0000ee;
-  stroke-width: 5px;
-  transition: stroke-dasharray 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
+    stroke: #0000ee;
+    stroke-width: 5px;
+    transition: stroke-dasharray 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
 .circulargauge-background {
-  stroke: #cccccc;
-  stroke-width: 5px;
+    stroke: #cccccc;
+    stroke-width: 5px;
 }
 
 .circulargauge-value {
-  fill: #000000d9;
-  font: bold 22px "Roboto Condensed", sans-serif;
+    fill: #000000d9;
+    font: bold 22px "Roboto Condensed", sans-serif;
 }
 
 .circulargauge-title {
-  fill: #0000008c;
-  font: 10px "Roboto Condensed", sans-serif;
+    fill: #0000008c;
+    font: 10px "Roboto Condensed", sans-serif;
 }

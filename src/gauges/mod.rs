@@ -15,9 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+mod arc;
 mod circulargauge;
 mod controlgauge;
 mod svgdraw;
 
+pub use arc::{Arc, ArcProps};
 pub use circulargauge::{CircularGauge, CircularGaugeProps};
 pub use controlgauge::{ControlGauge, ControlGaugeProps};

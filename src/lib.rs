@@ -3,6 +3,7 @@ use yew::prelude::*;
 mod gauges;
 mod utils;
 
+use gauges::Arc;
 use gauges::CircularGauge;
 use gauges::ControlGauge;
 
@@ -30,14 +31,23 @@ fn app_component() -> Html {
     };
 
     html! {
-        <div>
+    <div>
         <button {onclick}>{ "+1" }</button>
         <button onclick={onclick2}>{ "-1" }</button>
         <p>{ *counter }</p>
         <p>{ (4.5f64).sin() }</p>
-        <CircularGauge value = { Some(*counter) } title = "Temperature" min = 0.0 max= 20.0 />
-        <ControlGauge value = { Some(*counter) } title = "Temperature2" min = 0.0 max= 20.0/>
+        <div class="gaugecontainer">
+            <div>
+                <CircularGauge value = { Some(*counter) } title = "Temperature" min = 0.0 max= 20.0 />
+            </div>
+            <div>
+                <ControlGauge value = { Some(*counter) } title = "Temperature2" min = 0.0 max= 20.0>
+                    <Arc start = 0.0 end = 10.0 />
+                    <Arc start = 10.0 end = 20.0 r = 1.0 style = "stroke: red;" />
+                </ControlGauge>
+            </div>
         </div>
+    </div>
     }
 }
 #[wasm_bindgen(start)]
