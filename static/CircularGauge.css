@@ -35,3 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     fill: #0000008c;
     font: 10px "Roboto Condensed", sans-serif;
 }
+
+.circulargauge-arc {
+    stroke-width: 2px;
+    stroke-linecap: butt;
+    stroke: blue;
+    fill: #00000000;
+} 

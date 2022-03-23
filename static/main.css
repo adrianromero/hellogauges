@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @import url("./CircularGauge.css");
 @import url("./ControlGauge.css");
 @import url("./DialGauge.css");
+@import url("./MetroGauge.css");
 
 .gaugecontainer {
     display: grid;

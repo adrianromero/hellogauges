@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+use super::section::{Section, SectionContext};
 use super::svgdraw;
 use yew::prelude::*;
 
@@ -27,6 +28,8 @@ pub struct DialGaugeProps {
     pub max: f64,
     pub step: f64,
     pub step_label: f64,
+    #[prop_or_default]
+    pub children: ChildrenWithProps<Section>,
 }
 
 #[function_component(DialGauge)]
@@ -60,9 +63,9 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
             let mark = 20.0 + (160.0 * (index - props.min)) / (props.max - props.min);
             html! {
                 <line
-                    x1={Some(mark.to_string())}
+                    x1={mark.to_string()}
                     y1=36
-                    x2={Some(mark.to_string())}
+                    x2={mark.to_string()}
                     y2=54
                     class="dialgauge-mark"
               />
@@ -79,14 +82,14 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
             html! {
                 <>
                     <line
-                        x1={Some(mark.to_string())}
+                        x1={mark.to_string()}
                         y1=30
-                        x2={Some(mark.to_string())}
+                        x2={mark.to_string()}
                         y2=60
                         class="dialgauge-markstep"
                     />
                     <text
-                        x={Some(mark.to_string())}
+                        x={mark.to_string()}
                         y=70
                         text-anchor="middle"
                         class="dialgauge-marklabel"
@@ -108,10 +111,19 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
         { lines }
         { lines_label }
         { html_bar }
-        <text x = 180 y = 20 text-anchor = "end" class = "dialgauge-value">
+        <ContextProvider<SectionContext> context={SectionContext{
+            min: props.min,
+            max: props.max,
+            offsetx: 20.0,
+            offsety: 45.0,
+            width: 160.0,
+            class: "dialgauge-section" }}>
+            { for props.children.iter() }
+        </ContextProvider<SectionContext>>
+        <text x=180 y=20 text-anchor="end" class="dialgauge-value">
             { formatvalue }
         </text>
-        <text x = 20 y = 20 text-anchor = "start" class = "dialgauge-title">
+        <text x=20 y=20 text-anchor="start" class="dialgauge-title">
             { props.title.clone() }
         </text>
         </svg>

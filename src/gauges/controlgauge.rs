@@ -70,7 +70,7 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                         fill: #00000000;
                         stroke-miterlimit: 0;
                         stroke-dasharray: {} 400;
-                    "##, svgdraw::padvalue(props.min, props.max, arctotalrad,v))}
+                    "##, svgdraw::padvalue(props.min, props.max, arctotalrad, v))}
                 />
             },
             v.to_string(),
@@ -100,6 +100,7 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                 stroke-dasharray: none;
             "##
         />
+        {html_arcrad}
         <ContextProvider<ArcContext> context={ArcContext{
             min: props.min,
             max: props.max,
@@ -111,12 +112,11 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
             class: "controlgauge-arc" }}>
             { for props.children.iter() }
         </ContextProvider<ArcContext>>
-        {html_arcrad}
         <text x=100 y=105 text-anchor="middle" class="controlgauge-value">
           { formatvalue }
         </text>
         <text
-          x={ Some(centerx.to_string()) }
+          x={centerx.to_string()}
           y=15
           text-anchor="middle"
           class="controlgauge-title"
@@ -125,6 +125,5 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
         </text>
         { html_arc }
       </svg>
-
     }
 }

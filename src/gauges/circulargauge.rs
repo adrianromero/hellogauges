@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+use super::arc::{Arc, ArcContext};
 use super::svgdraw;
 use yew::prelude::*;
 
@@ -25,6 +26,8 @@ pub struct CircularGaugeProps {
     pub title: String,
     pub min: f64,
     pub max: f64,
+    #[prop_or_default]
+    pub children: ChildrenWithProps<Arc>,
 }
 
 #[function_component(CircularGauge)]
@@ -37,9 +40,9 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
         Some(v) => (
             html! {
                 <circle
-                    cx={Some(centerx.to_string())}
-                    cy={Some(centery.to_string())}
-                    r={Some(r1.to_string())}
+                    cx={centerx.to_string()}
+                    cy={centery.to_string()}
+                    r={r1.to_string()}
                     class="circulargauge-bar"
                     style={format!(r##"
                         fill: #00000000;
@@ -61,12 +64,23 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
             viewBox="0 0 200 130"
         >
         <circle
-            cx={Some(centerx.to_string())}
-            cy={Some(centery.to_string())}
-            r={Some(r1.to_string())}
+            cx={centerx.to_string()}
+            cy={centery.to_string()}
+            r={r1.to_string()}
             class="circulargauge-background"
             style="fill: #00000000; stroke-miterlimit: 0"
         />
+        <ContextProvider<ArcContext> context={ArcContext{
+            min: props.min,
+            max: props.max,
+            startangle: -90.0,
+            endangle: 270.0,
+            centerx,
+            centery,
+            r: 52.0,
+            class: "circulargauge-arc" }}>
+            { for props.children.iter() }
+        </ContextProvider<ArcContext>>
         { html_arc }
         <text x={100} y={65} text-anchor="middle" class="circulargauge-value">
             { formatvalue }
