@@ -23,6 +23,8 @@ use yew::prelude::*;
 pub struct DialGaugeProps {
     #[prop_or_default]
     pub value: Option<f64>,
+    #[prop_or_default]
+    pub pattern: String,
     pub title: String,
     pub min: f64,
     pub max: f64,
@@ -50,7 +52,7 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
                    svgdraw::padvalue(props.min, props.max,160.0, v)) }
              />
             },
-            v.to_string(),
+            svgdraw::format_number(&props.pattern, v),
         ),
         None => (html! {}, String::new()),
     };

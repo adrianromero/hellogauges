@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 use std::f64::consts::PI;
+use std::str::FromStr;
 
 pub fn arcpath(
     cx: i32,
@@ -54,6 +55,16 @@ pub fn padvalue(min: f64, max: f64, length: f64, value: f64) -> f64 {
 
 pub fn radians(angle: f64) -> f64 {
     (angle * PI) / 180.0
+}
+
+pub fn format_number(fmt: &str, value: f64) -> String {
+    let mut fmtiter = fmt.split(",");
+    let suffix = fmtiter.next().unwrap_or("");
+    let strvalue = match FromStr::from_str(fmtiter.next().unwrap_or("")) {
+        Ok(precission) => format!("{:.*}", precission, value),
+        Err(_) => value.to_string(),
+    };
+    strvalue + suffix
 }
 
 // pub fn create_padvalue(min: f64, max: f64, length: f64) -> Box<dyn Fn(f64) -> f64> {

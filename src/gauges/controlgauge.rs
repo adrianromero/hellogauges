@@ -23,6 +23,8 @@ use yew::prelude::*;
 pub struct ControlGaugeProps {
     #[prop_or_default]
     pub value: Option<f64>,
+    #[prop_or_default]
+    pub pattern: String,
     pub title: String,
     pub min: f64,
     pub max: f64,
@@ -73,7 +75,7 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                     "##, svgdraw::padvalue(props.min, props.max, arctotalrad, v))}
                 />
             },
-            v.to_string(),
+            svgdraw::format_number(&props.pattern, v),
         ),
         None => (html! {}, html! {}, String::new()),
     };

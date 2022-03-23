@@ -41,25 +41,25 @@ fn app_component() -> Html {
         <p>{ (4.5f64).sin() }</p>
         <div class="gaugecontainer">
             <div>
-                <CircularGauge value = { Some(*counter) } title = "Temperature" min = {-10.0} max= {20.0} >
+                <CircularGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} >
                     <Arc start = 0.0 end = 10.0 />
                     <Arc start = 10.0 end = 20.0 r = 0.9 style = "stroke: green;" />
                 </CircularGauge>
-        </div>
+            </div>
             <div>
-                <ControlGauge value = { Some(*counter) } title = "Temperature2" min = {-10.0} max= {20.0} >
+                <ControlGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max= {20.0} >
                     <Arc start = 0.0 end = 10.0 />
                     <Arc start = 10.0 end = 20.0 r = 0.8 style = "stroke: red;" />
                 </ControlGauge>
             </div>
             <div>
-                <DialGauge value = { Some(*counter) } title = "Temperature2" min = {-10.0} max = {20.0} step = 0.5 step_label = 5.0>
+                <DialGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max = {20.0} step = 0.5 step_label = 5.0>
                     <Section start = 0.0 end = 10.0 />
                     <Section start = 10.0 end = 20.0 style = "stroke: red;" />
                 </DialGauge>
             </div>
             <div>
-                <MetroGauge value = { Some(*counter) } title = "Temperature2" min = {0.0} max = {120.0} >
+                <MetroGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} >
                     <Arc start = 0.0 end = 10.0 />
                     <Arc start = 10.0 end = 20.0 style = "stroke: red;" />
                 </MetroGauge>

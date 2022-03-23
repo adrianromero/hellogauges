@@ -23,6 +23,8 @@ use yew::prelude::*;
 pub struct CircularGaugeProps {
     #[prop_or_default]
     pub value: Option<f64>,
+    #[prop_or_default]
+    pub pattern: String,
     pub title: String,
     pub min: f64,
     pub max: f64,
@@ -52,7 +54,7 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
                         svgdraw::padvalue(props.min, props.max, r1 * svgdraw::radians(360.0), v), centerx, centery, -centerx, -centery)}
                 />
             },
-            v.to_string(),
+            svgdraw::format_number(&props.pattern, v),
         ),
         None => (html! {}, String::new()),
     };
