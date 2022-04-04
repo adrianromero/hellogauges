@@ -3,12 +3,12 @@ use yew::prelude::*;
 mod gauges;
 mod utils;
 
-use gauges::Arc;
 use gauges::CircularGauge;
 use gauges::ControlGauge;
 use gauges::DialGauge;
+use gauges::LiquidGauge;
 use gauges::MetroGauge;
-use gauges::Section;
+use gauges::{Arc, Section};
 
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
@@ -64,6 +64,9 @@ fn app_component() -> Html {
                     <Arc start = 10.0 end = 20.0 style = "stroke: red;" />
                 </MetroGauge>
             </div>
+            <div>
+                <LiquidGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} />
+            </div>
         </div>
     </div>
     }
@@ -72,9 +75,10 @@ fn app_component() -> Html {
 pub fn run_app() -> Result<(), JsValue> {
     utils::set_panic_hook();
     yew::start_app::<App>();
-    Ok(())
-    //     let root = document()
+    // let root = document()
     //     .query_selector("#root")
     //     .expect("can't get #root node for rendering")
     //     .expect("can't unwrap #root node");
+    // yew::start_app_in_element::<App>(root);
+    Ok(())
 }
