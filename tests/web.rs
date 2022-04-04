@@ -11,3 +11,12 @@ wasm_bindgen_test_configure!(run_in_browser);
 fn pass() {
     assert_eq!(1 + 1, 2);
 }
+
+#[wasm_bindgen_test]
+fn pass2() {
+    let mut v = Vec::new();
+    v.push("pepe".to_string());
+    v.push("juan".to_string());
+    assert_eq!(v.len(), 2);
+    assert_eq!(v, ["pepe", "juan"]);
+}
