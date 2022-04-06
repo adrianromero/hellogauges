@@ -1,7 +1,12 @@
 [package]
 name = "hellogauges" 
 description = "Gauge Components for the Yew framework."
+readme = "README.md"
+homepage = "https://github.com:adrianromero/hellogauges"
 repository = "git@github.com:adrianromero/hellogauges.git"
+documentation = "https://docs.rs/hellogauges"
+keywords = ["wasm", "rust", "yew", "ui-components"]
+categories = ["wasm", "web-programming", "gui"]
 license = "Apache-2.0"
 version = "0.1.0"
 authors = ["Adrián Romero"]
@@ -13,8 +18,6 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 wasm-bindgen = "0.2.63"
 yew = "0.19.3"
-console_error_panic_hook = { version = "0.1.6", optional = true }
-wee_alloc = { version = "0.4.5", optional = true }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.13"
