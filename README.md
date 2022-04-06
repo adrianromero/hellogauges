@@ -6,4 +6,4 @@
 # HELLOGAUGES YEW Components
 </div>
 
-Gauges Components for the Yew framework.
+Gauge Components for the Yew framework.
