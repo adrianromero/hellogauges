@@ -15,21 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-mod circulargauge;
+pub mod circulargauge;
 mod controlgauge;
 mod dialgauge;
 mod liquidgauge;
 mod metrogauge;
 
-mod arc;
-mod section;
+pub mod arc;
+pub mod section;
 mod svgdraw;
 
-pub use circulargauge::{CircularGauge, CircularGaugeProps};
 pub use controlgauge::{ControlGauge, ControlGaugeProps};
 pub use dialgauge::{DialGauge, DialGaugeProps};
 pub use liquidgauge::{LiquidGauge, LiquidGaugeProps};
 pub use metrogauge::{MetroGauge, MetroGaugeProps};
-
-pub use arc::{Arc, ArcProps};
-pub use section::{Section, SectionProps};
