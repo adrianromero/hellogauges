@@ -24,3 +24,12 @@ wasm-bindgen-test = "0.3.13"
 
 [profile.release]
 opt-level = "s"
+
+include = [
+    "src/**/rs",
+    "tests/**/rs",
+    "Cargo.toml",
+    "LICENSE_APACHE",
+    "README.md",
+    "assets/**",
+]
