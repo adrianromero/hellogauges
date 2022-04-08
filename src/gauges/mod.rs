@@ -20,6 +20,7 @@ pub mod controlgauge;
 pub mod dialgauge;
 pub mod liquidgauge;
 pub mod metrogauge;
+pub mod simplegauge;
 
 pub mod arc;
 pub mod section;

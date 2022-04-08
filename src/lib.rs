@@ -24,3 +24,4 @@ pub use gauges::dialgauge::{DialGauge, DialGaugeProps};
 pub use gauges::liquidgauge::{LiquidGauge, LiquidGaugeProps};
 pub use gauges::metrogauge::{MetroGauge, MetroGaugeProps};
 pub use gauges::section::{Section, SectionProps};
+pub use gauges::simplegauge::{SimpleGauge, SimpleGaugeProps};

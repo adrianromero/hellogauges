@@ -1,3 +1,20 @@
+/*
+HELLOGAUGES
+Copyright (C) 2022 Adrián Romero
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 mod utils;
@@ -7,6 +24,7 @@ use hellogauges::ControlGauge;
 use hellogauges::DialGauge;
 use hellogauges::LiquidGauge;
 use hellogauges::MetroGauge;
+use hellogauges::SimpleGauge;
 use hellogauges::{Arc, Section};
 
 #[cfg(feature = "wee_alloc")]
@@ -44,6 +62,12 @@ fn app_component() -> Html {
                     <Arc start = 0.0 end = 10.0  r = 1.15 />
                     <Arc start = 10.0 end = 20.0 r = 0.9 style = "stroke: green;" />
                 </CircularGauge>
+            </div>
+            <div>
+                <SimpleGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max= {20.0} >
+                    <Arc start = 0.0 end = 10.0 />
+                    <Arc start = 10.0 end = 20.0 r = 0.8 style = "stroke: red;" />
+                </SimpleGauge>
             </div>
             <div>
                 <ControlGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max= {20.0} >
