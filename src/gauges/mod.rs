@@ -16,16 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 pub mod circulargauge;
-mod controlgauge;
-mod dialgauge;
-mod liquidgauge;
-mod metrogauge;
+pub mod controlgauge;
+pub mod dialgauge;
+pub mod liquidgauge;
+pub mod metrogauge;
 
 pub mod arc;
 pub mod section;
 mod svgdraw;
-
-pub use controlgauge::{ControlGauge, ControlGaugeProps};
-pub use dialgauge::{DialGauge, DialGaugeProps};
-pub use liquidgauge::{LiquidGauge, LiquidGaugeProps};
-pub use metrogauge::{MetroGauge, MetroGaugeProps};
