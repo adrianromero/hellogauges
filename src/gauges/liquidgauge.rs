@@ -100,58 +100,68 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
             <defs>
             { clip_path }
             </defs>
-            <circle
-                cx={centerx.to_string()}
-                cy={centery.to_string()}
-                r={r1.to_string()}
-                class="liquidgauge-border"
-                style="fill: #00000000;"
-            />
-            <text
-                id="value1"
-                x={100}
-                y={65}
-                text-anchor="middle"
-                class="liquidgauge-value liquidgauge-value_1"
-            >
-                { formatvalue.clone() }
-            </text>
-            <text
-                id="title1"
-                x={100}
-                y={85}
-                text-anchor="middle"
-                class="liquidgauge-title liquidgauge-title_1"
-            >
-                { props.title.clone() }
-            </text>
-            <circle
-                cx={centerx.to_string()}
-                cy={centery.to_string()}
-                r={r2.to_string()}
-                class="liquidgauge-background"
-                clip-path="url(#cut-off-bottom)"
-            />
-            <text
-                id="value2"
-                x=100
-                y=65
-                text-anchor="middle"
-                class="liquidgauge-value liquidgauge-value_2"
-                clip-path="url(#cut-off-bottom)"
-            >
-                { formatvalue }
-            </text>
-            <text
-                id="title2"
-                x={100}
-                y={85}
-                text-anchor="middle"
-                class="liquidgauge-title liquidgauge-title_2"
-                clip-path="url(#cut-off-bottom)"
-            >
-                { props.title.clone() }
-            </text>
+            <g style="fill: #00000000; stroke: #0000FF; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
+                <circle
+                    cx={centerx.to_string()}
+                    cy={centery.to_string()}
+                    r={r1.to_string()}
+                    class="liquidgauge-border"
+                />
+            </g>
+            <g style="fill: #000000D9; font: bold 22px sans-serif;">
+                <text
+                    id="value1"
+                    x={100}
+                    y={65}
+                    text-anchor="middle"
+                    class="liquidgauge-value liquidgauge-value_1"
+                >
+                    { formatvalue.clone() }
+                </text>
+            </g>
+            <g style="fill: #0000008C; font: 10px sans-serif;">
+                <text
+                    id="title1"
+                    x={100}
+                    y={85}
+                    text-anchor="middle"
+                    class="liquidgauge-title liquidgauge-title_1"
+                >
+                    { props.title.clone() }
+                </text>
+            </g>
+            <g style="fill: #0000FF;">
+                <circle
+                    cx={centerx.to_string()}
+                    cy={centery.to_string()}
+                    r={r2.to_string()}
+                    class="liquidgauge-background"
+                    clip-path="url(#cut-off-bottom)"
+                />
+            </g>
+            <g style="fill: #FFFFFFE9; font: bold 22px sans-serif;">
+                <text
+                    x=100
+                    y=65
+                    text-anchor="middle"
+                    class="liquidgauge-value liquidgauge-value_2"
+                    clip-path="url(#cut-off-bottom)"
+                >
+                    { formatvalue }
+                </text>
+            </g>
+            <g style="fill: #FFFFFFAC; font: 10px sans-serif;">
+                <text
+                    id="title2"
+                    x={100}
+                    y={85}
+                    text-anchor="middle"
+                    class="liquidgauge-title liquidgauge-title_2"
+                    clip-path="url(#cut-off-bottom)"
+                >
+                    { props.title.clone() }
+                </text>
+            </g>
         </svg>
     }
 }

@@ -69,8 +69,6 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                         1)}
                     class="controlgauge-bar"
                     style={format!(r##"
-                        fill: #00000000;
-                        stroke-miterlimit: 0;
                         stroke-dasharray: {} 400;
                     "##, svgdraw::padvalue(props.min, props.max, arctotalrad, v))}
                 />
@@ -86,6 +84,7 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
         version="1.1"
         viewBox="0 0 200 130"
       >
+        <g style="fill: #00000000; stroke: #D0D0D0; stroke-width: 28px; stroke-linecap: butt; stroke-miterlimit: 0; stroke-dasharray: none;">
         <path
             d={svgdraw::arcpath(
                 centerx,
@@ -96,36 +95,42 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
                 arctotal > 180.0,
                 1)}
             class="controlgauge-background"
-            style=r##"
-                fill: #00000000;
-                stroke-miterlimit: 0;
-                stroke-dasharray: none;
-            "##
         />
-        {html_arcrad}
-        <ContextProvider<ArcContext> context={ArcContext{
-            min: props.min,
-            max: props.max,
-            startangle: props.startangle,
-            endangle: props.endangle,
-            centerx,
-            centery,
-            r: 61.0,
-            class: "controlgauge-arc" }}>
-            { for props.children.iter() }
-        </ContextProvider<ArcContext>>
-        <text x=100 y=105 text-anchor="middle" class="controlgauge-value">
-          { formatvalue }
-        </text>
-        <text
-          x={centerx.to_string()}
-          y=15
-          text-anchor="middle"
-          class="controlgauge-title"
-        >
-          { props.title.clone() }
-        </text>
-        { html_arc }
+        </g>
+        <g style="fill: #00000000; stroke: #0000FF; stroke-width: 28px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            { html_arcrad }
+        </g>
+        <g style="fill: #00000000; stroke: #808080; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <ContextProvider<ArcContext> context={ArcContext{
+                min: props.min,
+                max: props.max,
+                startangle: props.startangle,
+                endangle: props.endangle,
+                centerx,
+                centery,
+                r: 61.0,
+                class: "controlgauge-arc" }}>
+                { for props.children.iter() }
+            </ContextProvider<ArcContext>>
+        </g>
+        <g style="fill: #000000D9; font: bold 14px sans-serif;">
+            <text x=100 y=105 text-anchor="middle" class="controlgauge-value">
+            { formatvalue }
+            </text>
+        </g>
+        <g style="fill: #0000008C; font: 10px sans-serif;">
+            <text
+            x={centerx.to_string()}
+            y=15
+            text-anchor="middle"
+            class="controlgauge-title"
+            >
+            { props.title.clone() }
+            </text>
+        </g>
+        <g style="fill: #000000;">
+            { html_arc }
+        </g>
       </svg>
     }
 }

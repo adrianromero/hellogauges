@@ -41,7 +41,7 @@ fn app_component() -> Html {
         <div class="gaugecontainer">
             <div>
                 <CircularGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} >
-                    <Arc start = 0.0 end = 10.0 />
+                    <Arc start = 0.0 end = 10.0  r = 1.15 />
                     <Arc start = 10.0 end = 20.0 r = 0.9 style = "stroke: green;" />
                 </CircularGauge>
             </div>

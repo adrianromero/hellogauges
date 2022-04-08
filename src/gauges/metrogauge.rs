@@ -67,7 +67,7 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
     };
 
     let m = ((props.max - props.min) / props.step) as usize;
-    let lines: Vec<Html> = (0..=m)
+    let lines_mark: Vec<Html> = (0..=m)
         .into_iter()
         .map(|t| t as f64 * props.step + props.min)
         .map(|index| {
@@ -90,37 +90,41 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
         .collect();
 
     let m = ((props.max - props.min) / props.step_label) as usize;
-    let lines_label: Vec<Html> = (0..=m)
+
+    let mut lines_marklabel: Vec<Html> = Vec::new();
+    let mut lines_markstep: Vec<Html> = Vec::new();
+
+    for index in (0..=m)
         .into_iter()
         .map(|t| t as f64 * props.step_label + props.min)
-        .map(|index| {
-            let angle = svgdraw::radians(
-                props.startangle - 360.0
-                    + (arctotal * (index - props.min)) / (props.max - props.min),
-            );
-            let cos = angle.cos();
-            let sin = angle.sin();
-            html! {
-                <>
-                    <line
-                        x1={(centerx as f64 + r1 * cos).to_string()}
-                        y1={(centery as f64 + r1 * sin).to_string()}
-                        x2={(centerx as f64 + (r1 - 6.0) * cos).to_string()}
-                        y2={(centery as f64 + (r1 - 6.0) * sin).to_string()}
-                        class="metrogauge-markstep"
-                    />
-                    <text
-                        x={(centerx as f64 + (r1 - 13.0) * cos).to_string()}
-                        y={(centery as f64 + (r1 - 13.0) * sin).to_string()}
-                        text-anchor="middle"
-                        class="metrogauge-marklabel"
-                    >
-                        { index }
-                    </text>
-                </>
-            }
-        })
-        .collect();
+    {
+        let angle = svgdraw::radians(
+            props.startangle - 360.0 + (arctotal * (index - props.min)) / (props.max - props.min),
+        );
+        let cos = angle.cos();
+        let sin = angle.sin();
+
+        lines_marklabel.push(html! {
+            <text
+                x={(centerx as f64 + (r1 - 13.0) * cos).to_string()}
+                y={(centery as f64 + (r1 - 13.0) * sin).to_string()}
+                text-anchor="middle"
+                dominant-baseline="middle"
+                class="metrogauge-marklabel"
+            >
+                { index }
+            </text>
+        });
+        lines_markstep.push(html! {
+            <line
+                x1={(centerx as f64 + r1 * cos).to_string()}
+                y1={(centery as f64 + r1 * sin).to_string()}
+                x2={(centerx as f64 + (r1 - 6.0) * cos).to_string()}
+                y2={(centery as f64 + (r1 - 6.0) * sin).to_string()}
+                class="metrogauge-markstep"
+            />
+        });
+    }
 
     html! {
         <svg
@@ -128,19 +132,28 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
             version="1.1"
             viewBox="0 0 200 130"
         >
-        <ContextProvider<ArcContext> context={ArcContext{
-            min: props.min,
-            max: props.max,
-            startangle: props.startangle,
-            endangle: props.endangle,
-            centerx,
-            centery,
-            r: 52.0,
-            class: "circulargauge-arc" }}>
-            { for props.children.iter() }
-        </ContextProvider<ArcContext>>
-        { lines }
-        { lines_label }
+        <g style="fill: #00000000; stroke: #808080; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <ContextProvider<ArcContext> context={ArcContext{
+                min: props.min,
+                max: props.max,
+                startangle: props.startangle,
+                endangle: props.endangle,
+                centerx,
+                centery,
+                r: 52.0,
+                class: "circulargauge-arc" }}>
+                { for props.children.iter() }
+            </ContextProvider<ArcContext>>
+        </g>
+        <g style="stroke: #606060; stroke-width: 0.8px; stroke-linecap: square;">
+            { lines_mark }
+        </g>
+        <g style="stroke: #606060; stroke-width: 1px; stroke-linecap: square;">
+            { lines_markstep }
+        </g>
+        <g style="fill: #0000008C; font: 6px sans-serif;">
+            { lines_marklabel }
+        </g>
         <path
             d={svgdraw::arcpath(
                 centerx,
@@ -153,19 +166,27 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
             class="metrogauge-mark"
             style="fill: #00000000"
         />
-        <text x=100 y=85 text-anchor="middle" class="metrogauge-value">
-            { formatvalue }
-        </text>
-        <text x={centerx.to_string()} y=55 text-anchor="middle" class="metrogauge-title">
-            { props.title.clone() }
-        </text>
-        { html_arrow }
-        <circle
-            cx={centerx.to_string()}
-            cy={centery.to_string()}
-            r=1.2
-            class="metrogauge-arrowpin"
-        />
+        <g style="fill: #000000D9; font: bold 10px sans-serif;">
+            <text x=100 y=85 text-anchor="middle" class="metrogauge-value">
+                { formatvalue }
+            </text>
+        </g>
+        <g style="fill: #0000008C; font: 8px sans-serif;">
+            <text x={centerx.to_string()} y=55 text-anchor="middle" class="metrogauge-title">
+                { props.title.clone() }
+            </text>
+        </g>
+        <g style="fill: #ff0000D9; stroke: #606060af; stroke-width: 0.5px;">
+            { html_arrow }
+        </g>
+        <g style="fill: #d1d1d1; stroke: #606060; stroke-width: 0.5px;">
+            <circle
+                cx={centerx.to_string()}
+                cy={centery.to_string()}
+                r=1.2
+                class="metrogauge-arrowpin"
+            />
+        </g>
         </svg>
     }
 }

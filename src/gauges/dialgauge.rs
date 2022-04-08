@@ -58,7 +58,7 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
     };
 
     let m = ((props.max - props.min) / props.step) as usize;
-    let lines: Vec<Html> = (0..=m)
+    let lines_mark: Vec<Html> = (0..=m)
         .into_iter()
         .map(|t| t as f64 * props.step + props.min)
         .map(|index| {
@@ -76,32 +76,34 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
         .collect();
 
     let m = ((props.max - props.min) / props.step_label) as usize;
-    let lines_label: Vec<Html> = (0..=m)
+    let mut lines_marklabel: Vec<Html> = Vec::new();
+    let mut lines_markstep: Vec<Html> = Vec::new();
+
+    for index in (0..=m)
         .into_iter()
         .map(|t| t as f64 * props.step_label + props.min)
-        .map(|index| {
-            let mark = 20.0 + (160.0 * (index - props.min)) / (props.max - props.min);
-            html! {
-                <>
-                    <line
-                        x1={mark.to_string()}
-                        y1=30
-                        x2={mark.to_string()}
-                        y2=60
-                        class="dialgauge-markstep"
-                    />
-                    <text
-                        x={mark.to_string()}
-                        y=70
-                        text-anchor="middle"
-                        class="dialgauge-marklabel"
-                    >
-                        { index }
-                    </text>
-                </>
-            }
-        })
-        .collect();
+    {
+        let mark = 20.0 + (160.0 * (index - props.min)) / (props.max - props.min);
+        lines_markstep.push(html! {
+            <line
+                x1={mark.to_string()}
+                y1=30
+                x2={mark.to_string()}
+                y2=60
+                class="dialgauge-markstep"
+            />
+        });
+        lines_marklabel.push(html! {
+            <text
+                x={mark.to_string()}
+                y=70
+                text-anchor="middle"
+                class="dialgauge-marklabel"
+            >
+                { index }
+            </text>
+        });
+    }
 
     html! {
         <svg
@@ -109,25 +111,42 @@ pub fn fc_DialgGauge(props: &DialGaugeProps) -> Html {
             version="1.1"
             viewBox="0 0 200 130"
         >
-        <line x1 = 20 y1 = 45 x2 = 180 y2 = 45 class="dialgauge-background" />
-        { lines }
-        { lines_label }
-        { html_bar }
-        <ContextProvider<SectionContext> context={SectionContext{
-            min: props.min,
-            max: props.max,
-            offsetx: 20.0,
-            offsety: 45.0,
-            width: 160.0,
-            class: "dialgauge-section" }}>
-            { for props.children.iter() }
-        </ContextProvider<SectionContext>>
-        <text x=180 y=20 text-anchor="end" class="dialgauge-value">
-            { formatvalue }
-        </text>
-        <text x=20 y=20 text-anchor="start" class="dialgauge-title">
-            { props.title.clone() }
-        </text>
+        <g style="fill: #00000000; stroke: #D0D0D0; stroke-width: 10px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <line x1 = 20 y1 = 45 x2 = 180 y2 = 45 class="dialgauge-background" />
+        </g>
+        <g style="stroke: #606060; stroke-width: 0.8px; stroke-linecap: square;">
+            { lines_mark }
+        </g>
+        <g style="stroke: #606060; stroke-width: 1px; stroke-linecap: square;">
+            { lines_markstep }
+        </g>
+        <g style="fill: #0000008C; font: 6px sans-serif;">
+            { lines_marklabel }
+        </g>
+        <g style="fill: #00000000; stroke:#ff0000D9; stroke-width: 10px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            { html_bar }
+        </g>
+        <g style="fill: #00000000; stroke: #808080; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <ContextProvider<SectionContext> context={SectionContext{
+                min: props.min,
+                max: props.max,
+                offsetx: 20.0,
+                offsety: 45.0,
+                width: 160.0,
+                class: "dialgauge-section" }}>
+                { for props.children.iter() }
+            </ContextProvider<SectionContext>>
+        </g>
+        <g style="fill: #000000D9; font: bold 14px sans-serif;">
+            <text x=180 y=20 text-anchor="end" class="dialgauge-value">
+                { formatvalue }
+            </text>
+        </g>
+        <g style="fill: #0000008C; font: 10px sans-serif;">
+            <text x=20 y=20 text-anchor="start" class="dialgauge-title">
+                { props.title.clone() }
+            </text>
+        </g>
         </svg>
     }
 }

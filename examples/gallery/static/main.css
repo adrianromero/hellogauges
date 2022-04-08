@@ -15,12 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-@import url("./fonts.css");
-@import url("./CircularGauge.css");
-@import url("./ControlGauge.css");
-@import url("./DialGauge.css");
-@import url("./MetroGauge.css");
-@import url("./LiquidGauge.css");
+
 
 .gaugecontainer {
     display: grid;

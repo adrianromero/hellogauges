@@ -47,8 +47,6 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
                     r={r1.to_string()}
                     class="circulargauge-bar"
                     style={format!(r##"
-                        fill: #00000000;
-                        stroke-miterlimit: 0;
                         stroke-dasharray: {} 400;
                         transform: translate({}px, {}px) rotate(-90deg) translate({}px, {}px);"##, 
                         svgdraw::padvalue(props.min, props.max, r1 * svgdraw::radians(360.0), v), centerx, centery, -centerx, -centery)}
@@ -65,31 +63,40 @@ pub fn circular_gauge(props: &CircularGaugeProps) -> Html {
             version="1.1"
             viewBox="0 0 200 130"
         >
-        <circle
-            cx={centerx.to_string()}
-            cy={centery.to_string()}
-            r={r1.to_string()}
-            class="circulargauge-background"
-            style="fill: #00000000; stroke-miterlimit: 0"
-        />
-        <ContextProvider<ArcContext> context={ArcContext{
-            min: props.min,
-            max: props.max,
-            startangle: -90.0,
-            endangle: 270.0,
-            centerx,
-            centery,
-            r: 52.0,
-            class: "circulargauge-arc" }}>
-            { for props.children.iter() }
-        </ContextProvider<ArcContext>>
-        { html_arc }
-        <text x={100} y={65} text-anchor="middle" class="circulargauge-value">
-            { formatvalue }
-        </text>
-        <text x={100} y={85} text-anchor="middle" class="circulargauge-title">
-            { props.title.clone() }
-        </text>
+        <g style="fill: #00000000; stroke: #D0D0D0; stroke-width: 5px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <circle
+                cx={centerx.to_string()}
+                cy={centery.to_string()}
+                r={r1.to_string()}
+                class="circulargauge-background"
+            />
+        </g>
+        <g style="fill: #00000000; stroke: #808080; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            <ContextProvider<ArcContext> context={ArcContext{
+                min: props.min,
+                max: props.max,
+                startangle: -90.0,
+                endangle: 270.0,
+                centerx,
+                centery,
+                r: 52.0,
+                class: "circulargauge-arc" }}>
+                    { for props.children.iter() }
+            </ContextProvider<ArcContext>>
+        </g>
+        <g style="fill: #00000000; stroke: #0000FF; stroke-width: 5px; stroke-linecap: butt; stroke-miterlimit: 0;">
+            { html_arc }
+        </g>
+        <g style="fill: #000000D9; font: bold 22px sans-serif;">
+            <text x={100} y={65} text-anchor="middle" class="circulargauge-value">
+                { formatvalue }
+            </text>
+        </g>
+        <g style="fill: #0000008C; font: 10px sans-serif;">
+            <text x={100} y={85} text-anchor="middle" class="circulargauge-title">
+                { props.title.clone() }
+            </text>
+        </g>
         </svg>
     }
 }
