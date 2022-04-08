@@ -1,5 +1,6 @@
 [package]
 name = "hellogauges" 
+version = "0.1.1000"
 description = "Gauge Components for the Yew framework."
 readme = "README.md"
 homepage = "https://github.com/adrianromero/hellogauges"
@@ -8,7 +9,6 @@ documentation = "https://docs.rs/hellogauges"
 keywords = ["wasm", "yew", "ui-components"]
 categories = ["wasm", "web-programming", "gui"]
 license = "Apache-2.0"
-version = "0.1.0"
 authors = ["Adrián Romero"]
 edition = "2018"
 
@@ -24,12 +24,3 @@ wasm-bindgen-test = "0.3.13"
 
 [profile.release]
 opt-level = "s"
-
-include = [
-    "src/**/rs",
-    "tests/**/rs",
-    "Cargo.toml",
-    "LICENSE_APACHE",
-    "README.md",
-    "assets/**",
-]
