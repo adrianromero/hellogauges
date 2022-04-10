@@ -15,35 +15,38 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.controlgauge-background {
+.gaugestyled .controlgauge-background {
     stroke: #dddddd;
     stroke-width: 28px;
-    }
+    stroke-dasharray: 2px;
+}
 
-.controlgauge-bar {
-    stroke: blueviolet;
+.gaugestyled .controlgauge-bar {
+    stroke: #ae6aed;
     stroke-width: 28px;
     transition: stroke-dasharray 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.controlgauge-arrow {
-    fill: #606060;
+.gaugestyled .controlgauge-arrow {
+    fill: #ffffff;
+    stroke: #606060;
+    stroke-width: 1px;
     transition: transform 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.controlgauge-value {
+.gaugestyled .controlgauge-value {
     fill: #000000d9;
-    font: bold 14px "Roboto Condensed", sans-serif;
+    font: bold 16px "Roboto Condensed", sans-serif;
 }
 
-.controlgauge-title {
+.gaugestyled .controlgauge-title {
     fill: #0000008c;
     font: 10px "Roboto Condensed", sans-serif;
 }
 
-.controlgauge-arc {
-    stroke-width: 2px;
+.gaugestyled .controlgauge-arc {
+    stroke-width: 22px;
     stroke-linecap: butt;
-    stroke: blue;
+    stroke: #ff3c3c;
     fill: #00000000;
 } 

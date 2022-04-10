@@ -57,7 +57,7 @@ pub fn simple_gauge(props: &SimpleGaugeProps) -> Html {
                         props.endangle,
                         arctotal > 180.0,
                         1)}
-                    class="controlgauge-bar"
+                    class="simplegauge-bar"
                     style={format!(r##"
                         stroke-dasharray: {} 400;
                     "##, svgdraw::padvalue(props.min, props.max, arctotalrad, v))}
@@ -84,7 +84,7 @@ pub fn simple_gauge(props: &SimpleGaugeProps) -> Html {
                 props.endangle,
                 arctotal > 180.0,
                 1)}
-            class="controlgauge-background"
+            class="simplegauge-background"
         />
         </g>
         <g style="fill: #00000000; stroke: #0000FF; stroke-width: 28px; stroke-linecap: butt; stroke-miterlimit: 0;">
@@ -99,21 +99,22 @@ pub fn simple_gauge(props: &SimpleGaugeProps) -> Html {
                 centerx,
                 centery,
                 r: 61.0,
-                class: "controlgauge-arc" }}>
+                class: "simplegauge-arc" }}>
                 { for props.children.iter() }
             </ContextProvider<ArcContext>>
         </g>
         <g style="fill: #000000D9; font: bold 10px sans-serif;">
-            <text x=100 y=80 text-anchor="middle" class="controlgauge-value">
+            <text x=100 y=80 text-anchor="middle" class="simplegauge-value">
             { formatvalue }
             </text>
         </g>
         <g style="fill: #0000008C; font: 8px sans-serif;">
             <text
                 x={centerx.to_string()}
-                y=95
+                y=90
                 text-anchor="middle"
-                class="controlgauge-title"
+                dominant-baseline="hanging"
+                class="simplegauge-title"
             >
             { props.title.clone() }
             </text>

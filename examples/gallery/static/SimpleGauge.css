@@ -15,32 +15,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.gaugestyled .circulargauge-bar {
-    stroke: #ff17f0;
-    stroke-width: 10px;
-    stroke-linecap: round;
+.gaugestyled .simplegauge-background {
+    stroke: #dddddd;
+    stroke-width: 20px;
+    }
+
+.gaugestyled .simplegauge-bar {
+    stroke: #3cb119;
+    stroke-width: 20px;
     transition: stroke-dasharray 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.gaugestyled .circulargauge-background {
-    stroke: #ff7df6;
-    stroke-width: 5px;
+.gaugestyled .simplegauge-value {
+    fill: #0088ddd9;
+    font: bold 18px "Roboto Condensed", sans-serif;
 }
 
-.gaugestyled .circulargauge-value {
-    stroke: #000000d9;
-    stroke-width: 0.5px;
-    fill: #ff7df6;
-    font: bold 26px "Roboto Condensed", sans-serif;
+.gaugestyled .simplegauge-title {
+    fill: #0088dd8c;
+    font: 16px "Roboto Condensed", sans-serif;
 }
 
-.gaugestyled .circulargauge-title {
-    fill: #ff17f0;
-    font: 12px "Roboto Condensed", sans-serif;
-}
-
-.gaugestyled .circulargauge-arc {
-    stroke-width: 14px;
+.gaugestyled .simplegauge-arc {
+    stroke-width: 10px;
     stroke-linecap: butt;
     fill: #00000000;
 } 

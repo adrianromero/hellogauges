@@ -114,7 +114,7 @@ pub fn control_gauge(props: &ControlGaugeProps) -> Html {
             </ContextProvider<ArcContext>>
         </g>
         <g style="fill: #000000D9; font: bold 14px sans-serif;">
-            <text x=100 y=105 text-anchor="middle" class="controlgauge-value">
+            <text x=100 y=95 text-anchor="middle" dominant-baseline="hanging" class="controlgauge-value">
             { formatvalue }
             </text>
         </g>

@@ -15,9 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+@import url(fonts.css);
+@import url(CircularGauge.css);
+@import url(SimpleGauge.css);
+@import url(ControlGauge.css);
 
-
+body{
+    font-family: sans-serif;
+}
 .gaugecontainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }

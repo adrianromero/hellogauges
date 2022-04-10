@@ -31,66 +31,126 @@ use hellogauges::{Arc, Section};
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+fn use_counter(
+    init: f64,
+    min: f64,
+    max: f64,
+) -> (f64, Box<dyn Fn(f64) -> Box<dyn Fn(MouseEvent) -> ()>>) {
+    let counter_hook = use_state(|| init);
+    let counter: f64 = *counter_hook;
+    let inc_counter: Box<dyn Fn(f64) -> Box<dyn Fn(MouseEvent) -> ()>> =
+        Box::new(move |inc: f64| {
+            let counter_hook = counter_hook.clone();
+            Box::new(move |_| {
+                let value = *counter_hook + inc;
+                let value = if value > max { max } else { value };
+                let value = if value < min { min } else { value };
+                counter_hook.set(value);
+            })
+        });
+    (counter, inc_counter)
+}
+
 #[function_component(App)]
 fn app_component() -> Html {
-    let counter = use_state(|| 0.0);
-    let onclick = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter + 1.0;
-            counter.set(value);
-        }
-    };
+    let (counter, inc_counter) = use_counter(10.0, -10.0, 20.0);
+    let (power, inc_power) = use_counter(60.0, 0.0, 100.0);
+    let (usage, inc_usage) = use_counter(50.0, 0.0, 100.0);
 
-    let onclick2 = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter - 1.0;
-            counter.set(value);
-        }
-    };
+    let (km, inc_km) = use_counter(50.0, 0.0, 120.0);
 
     html! {
     <div>
-        <button {onclick}>{ "+1" }</button>
-        <button onclick={onclick2}>{ "-1" }</button>
-        <p>{ *counter }</p>
-        <p>{ (4.5f64).sin() }</p>
-        <div class="gaugecontainer">
-            <div>
-                <CircularGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} >
-                    <Arc start = 0.0 end = 10.0  r = 1.15 />
-                    <Arc start = 10.0 end = 20.0 r = 0.9 style = "stroke: green;" />
-                </CircularGauge>
-            </div>
-            <div>
-                <SimpleGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max= {20.0} >
-                    <Arc start = 0.0 end = 10.0 />
-                    <Arc start = 10.0 end = 20.0 r = 0.8 style = "stroke: red;" />
-                </SimpleGauge>
-            </div>
-            <div>
-                <ControlGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max= {20.0} >
-                    <Arc start = 0.0 end = 10.0 />
-                    <Arc start = 10.0 end = 20.0 r = 0.8 style = "stroke: red;" />
-                </ControlGauge>
-            </div>
-            <div>
-                <DialGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max = {20.0} step = 0.5 step_label = 5.0>
-                    <Section start = 0.0 end = 10.0 />
-                    <Section start = 10.0 end = 20.0 style = "stroke: red;" />
-                </DialGauge>
-            </div>
-            <div>
-                <MetroGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} >
-                    <Arc start = 0.0 end = 10.0 />
-                    <Arc start = 10.0 end = 20.0 style = "stroke: red;" />
-                </MetroGauge>
-            </div>
-            <div>
-                <LiquidGauge value = { Some(*counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} />
-            </div>
+    <h1>{"HELLOGAUGES"}</h1>
+    <div>{"Gauge Components for the Yew framework"}</div>
+
+    <div class="gaugecontainer">
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_counter(-1.0)}>{ "<" }</button>
+            {"\u{00a0}CircularGauge\u{00a0}"}
+            <button onclick={inc_counter(1.0)}>{ ">" }</button>
         </div>
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_power(-2.0)}>{ "<<" }</button>
+            {"\u{00a0}SimpleGauge\u{00a0}"}
+            <button onclick={inc_power(2.0)}>{ ">>" }</button>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_usage(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}ControlGauge\u{00a0}"}
+            <button onclick={inc_usage(5.0)}>{ ">>" }</button>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_km(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}MetroGauge\u{00a0}"}
+            <button onclick={inc_km(5.0)}>{ ">>" }</button>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_km(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}MetroGauge\u{00a0}"}
+            <button onclick={inc_km(5.0)}>{ ">>" }</button>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button onclick={inc_km(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}MetroGauge\u{00a0}"}
+            <button onclick={inc_km(5.0)}>{ ">>" }</button>
+        </div>
+    </div>
+
+    <h2>{"Default gauges style"}</h2>
+    <div class="gaugecontainer">
+        <div>
+            <CircularGauge value = { Some(counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} />
+        </div>
+        <div>
+            <SimpleGauge value = { Some(power) } pattern="kW,0" title = "Power" min = {0.0} max= {100.0} />
+        </div>
+        <div>
+            <ControlGauge value = { Some(usage) } pattern="Gb,0" title = "Usage" min = {0.0} max= {100.0} />
+        </div>
+        <div>
+            <DialGauge value = { Some(counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max = {20.0} step = 0.5 step_label = 5.0/>
+        </div>
+        <div>
+            <MetroGauge value = { Some(km) } pattern="km/h,0" title = "Speedometer" min = {0.0} max = {120.0} />
+        </div>
+        <div>
+            <LiquidGauge value = { Some(counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} />
+        </div>
+    </div>
+    <h2>{"Styled and animated gauges"}</h2>
+    <div class="gaugecontainer gaugestyled">
+        <div>
+            <CircularGauge value = { Some(counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} >
+                <Arc start = {-10.0} end = 5.0 style = "stroke: #0000FF30;" />
+                <Arc start = 5.0 end = 20.0 style = "stroke:  #FF000030;" />
+            </CircularGauge>
+        </div>
+        <div>
+            <SimpleGauge value = { Some(power) } pattern="kW,0" title = "Power" min = {0.0} max= {100.0} >
+                <Arc start = 0.0 end = 20.0 style = "stroke: green;" />
+                <Arc start = 20.0 end = 80.0 style = "stroke: lightgray;" />
+                <Arc start = 80.0 end = 100.0 style = "stroke: red;" />
+            </SimpleGauge>
+        </div>
+        <div>
+            <ControlGauge value = { Some(usage) } pattern="Gb,0" title = "Usage" min = {0.0} max= {100.0}  >
+                <Arc start = 80.0 end = 100.0 r = 0.8 />
+            </ControlGauge>
+        </div>
+        <div>
+            <DialGauge value = { Some(counter) } pattern="°C,1" title = "Temperature2" min = {-10.0} max = {20.0} step = 0.5 step_label = 5.0>
+                <Section start = 0.0 end = 10.0 />
+                <Section start = 10.0 end = 20.0 style = "stroke: red;" />
+            </DialGauge>
+        </div>
+        <div>
+            <MetroGauge value = { Some(km) } pattern="km/h,0" title = "Speedometer" min = {0.0} max = {120.0} />
+        </div>
+        <div>
+            <LiquidGauge value = { Some(counter) } pattern="°C,1" title = "Temperature2" min = {0.0} max = {120.0} />
+        </div>
+    </div>
     </div>
     }
 }
