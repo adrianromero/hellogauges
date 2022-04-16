@@ -106,8 +106,8 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
 
         lines_marklabel.push(html! {
             <text
-                x={(centerx as f64 + (r1 - 13.0) * cos).to_string()}
-                y={(centery as f64 + (r1 - 13.0) * sin).to_string()}
+                x={(centerx as f64 + (r1 - 15.0) * cos).to_string()}
+                y={(centery as f64 + (r1 - 15.0) * sin).to_string()}
                 text-anchor="middle"
                 dominant-baseline="middle"
                 class="metrogauge-marklabel"
@@ -132,6 +132,14 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
             version="1.1"
             viewBox="0 0 200 130"
         >
+        <g style="fill: #00000000;">
+            <circle
+                cx={centerx.to_string()}
+                cy={centery.to_string()}
+                r={60.0}
+                class="metrogauge-background"
+            />
+        </g>
         <g style="fill: #00000000; stroke: #808080; stroke-width: 2px; stroke-linecap: butt; stroke-miterlimit: 0;">
             <ContextProvider<ArcContext> context={ArcContext{
                 min: props.min,
@@ -141,7 +149,7 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
                 centerx,
                 centery,
                 r: 52.0,
-                class: "circulargauge-arc" }}>
+                class: "metrogauge-arc" }}>
                 { for props.children.iter() }
             </ContextProvider<ArcContext>>
         </g>
@@ -154,20 +162,22 @@ pub fn metro_gauge(props: &MetroGaugeProps) -> Html {
         <g style="fill: #0000008C; font: 6px sans-serif;">
             { lines_marklabel }
         </g>
-        <path
-            d={svgdraw::arcpath(
-                centerx,
-                centery,
-                r1 + 2.0,
-                props.startangle,
-                props.endangle,
-                arctotal > 180.0,
-                1)}
-            class="metrogauge-mark"
-            style="fill: #00000000"
-        />
+        <g style="fill: #00000000; stroke: #606060; stroke-width: 0.8px; stroke-linecap: square;">
+            <path
+                d={svgdraw::arcpath(
+                    centerx,
+                    centery,
+                    r1 + 2.0,
+                    props.startangle,
+                    props.endangle,
+                    arctotal > 180.0,
+                    1)}
+                class="metrogauge-mark"
+                style="fill: #00000000"
+            />
+        </g>
         <g style="fill: #000000D9; font: bold 10px sans-serif;">
-            <text x=100 y=85 text-anchor="middle" class="metrogauge-value">
+            <text x=100 y=80 text-anchor="middle" dominant-baseline="hanging" class="metrogauge-value">
                 { formatvalue }
             </text>
         </g>

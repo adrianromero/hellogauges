@@ -15,52 +15,60 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.metrogauge-mark {
-  stroke: #606060;
-  stroke-width: 0.8px;
-  stroke-linecap: square;
+.gaugestyled .metrogauge-mark {
+  stroke: #2c48ff;
+  stroke-width: 2px;
+  stroke-linecap: butt;
 }
 
-.metrogauge-markstep {
-  stroke: #606060;
-  stroke-width: 1px;
-  stroke-linecap: square;
+.gaugestyled .metrogauge-markstep {
+  stroke: #2c48ff;
+  stroke-width: 2.2px;
+  stroke-linecap: butt;
 }
 
-.metrogauge-marklabel {
-  fill: #0000008c;
-  font: 6px "Roboto Condensed", sans-serif;
+.gaugestyled .metrogauge-marklabel {
+  fill: #adb8ff;
+  font: 10px "Roboto Condensed", sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  text-shadow: 0 0 5px #ffffff; 
 }
 
-.metrogauge-background {
-  stroke: #cccccc;
-  stroke-width: 5px;
+.gaugestyled .metrogauge-background {
+  fill: #0f0f0f;
 }
 
-.metrogauge-arrow {
-  fill: #ff0000af;
-  stroke: #606060af;
-  stroke-width: 0.5px;
+.gaugestyled .metrogauge-arrow {
+  fill: #ffaa00;
   transition: transform 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.metrogauge-arrowpin {
-  fill: #d1d1d1;
-  stroke: #606060;
+.gaugestyled .metrogauge-arrowpin {
+  fill: #000000;
+  stroke: #ffaa00;
+  stroke-width: 6px;
+}
+
+.gaugestyled .metrogauge-value {
+  fill: #ffffff;
+  font: 12px "Roboto Condensed", sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  text-shadow: 0 0 5px #ffffff;  
+  stroke:#2e4aff;
   stroke-width: 0.5px;
 }
 
-.metrogauge-value {
-  fill: #000000d9;
-  font: bold 10px "Roboto Condensed", sans-serif;
-}
-
-.metrogauge-title {
-  fill: #0000008c;
+.gaugestyled .metrogauge-title {
+  fill: #adb8ff;
   font: 8px "Roboto Condensed", sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  text-shadow: 0 0 5px #ffffff;  
 }
 
-.metrogauge-arc {
+.gaugestyled .metrogauge-arc {
     stroke-width: 2px;
     stroke-linecap: butt;
     stroke: blue;

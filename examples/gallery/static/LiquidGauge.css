@@ -15,39 +15,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.liquidgauge-background {
-  fill: #0099ff;
+.gaugestyled .liquidgauge-background {
+  fill: #0099ffA0;
 }
 
-.liquidgauge-bar {
+.gaugestyled .liquidgauge-bar {
   transition: y 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.liquidgauge-border {
+.gaugestyled .liquidgauge-border {
+  stroke-width: 3px;
+  filter: drop-shadow(0px 0px 3px #0099ff);
   stroke: #0099ff;
-  stroke-width: 2px;
 }
 
-.liquidgauge-value {
-  font: bold 22px "Roboto Condensed", sans-serif;
+.gaugestyled .liquidgauge-value {
+  font: bold 28px "Roboto Condensed", sans-serif;
 }
 
-.liquidgauge-value_1 {
-  fill: #000000d9;
+.gaugestyled .liquidgauge-value_1 {
+  fill: #0079cad9;
 }
 
-.liquidgauge-value_2 {
-  fill: #ffffffe9;
+.gaugestyled .liquidgauge-value_2 {
+  fill: #b8e3ffe9;
 }
 
-.liquidgauge-title {
-  font: 10px "Roboto Condensed", sans-serif;
+.gaugestyled .liquidgauge-title {
+  font: 12px "Roboto Condensed", sans-serif;
 }
 
-.liquidgauge-title_1 {
+.gaugestyled .liquidgauge-title_1 {
   fill: #0000008c;
 }
 
-.liquidgauge-title_2 {
+.gaugestyled .liquidgauge-title_2 {
   fill: #ffffffac;
 }

@@ -123,8 +123,9 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
                 <text
                     id="title1"
                     x={100}
-                    y={85}
+                    y={75}
                     text-anchor="middle"
+                    dominant-baseline="hanging"
                     class="liquidgauge-title liquidgauge-title_1"
                 >
                     { props.title.clone() }
@@ -154,8 +155,9 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
                 <text
                     id="title2"
                     x={100}
-                    y={85}
+                    y={75}
                     text-anchor="middle"
+                    dominant-baseline="hanging"
                     class="liquidgauge-title liquidgauge-title_2"
                     clip-path="url(#cut-off-bottom)"
                 >

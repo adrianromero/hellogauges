@@ -19,11 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @import url(CircularGauge.css);
 @import url(SimpleGauge.css);
 @import url(ControlGauge.css);
+@import url(DialGauge.css);
+@import url(MetroGauge.css);
+@import url(LiquidGauge.css);
 
 body{
     font-family: sans-serif;
 }
 .gaugecontainer {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, 1fr);
+}
+
+.gaugecontainer {
+    display: grid;
+    grid-template-columns: 30px repeat(6, 1fr);
 }

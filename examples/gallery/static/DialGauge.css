@@ -15,47 +15,47 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.dialgauge-bar {
-  stroke: #ff0000;
+.gaugestyled .dialgauge-bar {
+  stroke: #001eff;
   stroke-width: 6px;
   stroke-linecap: butt;
   transition: stroke-dasharray 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
 
-.dialgauge-background {
-  stroke: #dddddd;
+.gaugestyled .dialgauge-background {
+  stroke: #ff6060;
   stroke-width: 6px;
   stroke-linecap: butt;
 }
 
-.dialgauge-mark {
+.gaugestyled .dialgauge-mark {
   stroke: #606060;
   stroke-width: 0.4px;
   stroke-linecap: round;
 }
 
-.dialgauge-markstep {
+.gaugestyled .dialgauge-markstep {
   stroke: #606060;
   stroke-width: 0.6px;
   stroke-linecap: round;
 }
 
-.dialgauge-marklabel {
+.gaugestyled .dialgauge-marklabel {
   fill: #0000008c;
   font: 10px "Roboto Condensed", sans-serif;
 }
 
-.dialgauge-value {
+.gaugestyled .dialgauge-value {
   fill: #000000d9;
   font: bold 14px "Roboto Condensed", sans-serif;
 }
 
-.dialgauge-title {
+.gaugestyled .dialgauge-title {
   fill: #0000008c;
   font: 10px "Roboto Condensed", sans-serif;
 }
 
-.dialgauge-section {
+.gaugestyled .dialgauge-section {
     stroke-width: 2px;
     stroke-linecap: butt;
     stroke: blue;
