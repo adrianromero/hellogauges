@@ -25,13 +25,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 body{
     font-family: sans-serif;
+} 
+
+.gaugetitle {
+    display: flex; 
+    justify-content: center;
 }
-.gaugecontainer {
-    display: grid;
-    grid-template-columns: 30px repeat(6, 1fr);
+
+.gaugestyle {
+    writing-mode: vertical-rl; 
+    transform: rotate(180deg);
+}
+
+.gaugegallery {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .gaugecontainer {
     display: grid;
-    grid-template-columns: 30px repeat(6, 1fr);
+    grid-template-columns: 30px repeat(3, 1fr);
+    margin: 20px;
 }

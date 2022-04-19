@@ -65,42 +65,27 @@ fn app_component() -> Html {
     <h1>{"HELLOGAUGES"}</h1>
     <div>{"Gauge Components for the Yew framework"}</div>
 
+    <div class="gaugegallery">
     <div class="gaugecontainer">
         <div></div>
-        <div style="display: flex; justify-content: center;">
+        <div class="gaugetitle">
             <button onclick={inc_counter(-1.0)}>{ "<" }</button>
             {"\u{00a0}CircularGauge\u{00a0}"}
             <button onclick={inc_counter(1.0)}>{ ">" }</button>
         </div>
-        <div style="display: flex; justify-content: center;">
+        <div class="gaugetitle">
             <button onclick={inc_power(-2.0)}>{ "<<" }</button>
             {"\u{00a0}SimpleGauge\u{00a0}"}
             <button onclick={inc_power(2.0)}>{ ">>" }</button>
         </div>
-        <div style="display: flex; justify-content: center;">
+        <div class="gaugetitle">
             <button onclick={inc_usage(-5.0)}>{ "<<" }</button>
             {"\u{00a0}ControlGauge\u{00a0}"}
             <button onclick={inc_usage(5.0)}>{ ">>" }</button>
         </div>
-        <div style="display: flex; justify-content: center;">
-            <button onclick={inc_weight(-2.0)}>{ "<<" }</button>
-            {"\u{00a0}DialGauge\u{00a0}"}
-            <button onclick={inc_weight(2.0)}>{ ">>" }</button>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <button onclick={inc_km(-5.0)}>{ "<<" }</button>
-            {"\u{00a0}MetroGauge\u{00a0}"}
-            <button onclick={inc_km(5.0)}>{ ">>" }</button>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <button onclick={inc_humidity(-5.0)}>{ "<<" }</button>
-            {"\u{00a0}LiquidGauge\u{00a0}"}
-            <button onclick={inc_humidity(5.0)}>{ ">>" }</button>
-        </div>
     </div>
-
     <div class="gaugecontainer">
-        <div style="writing-mode: vertical-rl; transform: rotate(180deg);">{"Default gauges style"}</div>
+        <div class="gaugestyle">{"Default gauges style"}</div>
         <div>
             <CircularGauge value = { Some(counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} />
         </div>
@@ -110,18 +95,9 @@ fn app_component() -> Html {
         <div>
             <ControlGauge value = { Some(usage) } pattern="Gb,0" title = "Usage" min = {0.0} max= {100.0} />
         </div>
-        <div>
-            <DialGauge value = { Some(weight) } pattern="Kg,3" title = "Weight" min = {40.0} max = {120.0} step = 2.0 step_label = 10.0/>
-        </div>
-        <div>
-            <MetroGauge value = { Some(km) } pattern="km/h,0" title = "Speedometer" min = {0.0} max = {120.0} />
-        </div>
-        <div>
-            <LiquidGauge value = { Some(humidity) } pattern="%,0" title = "Humidity" min = {0.0} max = {100.0} />
-        </div>
     </div>
     <div class="gaugecontainer gaugestyled">
-        <div style="writing-mode: vertical-rl; transform: rotate(180deg);">{"Styled gauges"}</div>
+        <div class="gaugestyle">{"Default gauges style"}</div>
         <div>
             <CircularGauge value = { Some(counter) } pattern="°C,1" title = "Temperature" min = {-10.0} max= {20.0} >
                 <Arc start = {-10.0} end = 5.0 style = "stroke: #0000FF30;" />
@@ -140,6 +116,40 @@ fn app_component() -> Html {
                 <Arc start = 80.0 end = 100.0 r = 0.8 />
             </ControlGauge>
         </div>
+    </div>
+
+    <div class="gaugecontainer">
+        <div></div>
+        <div class="gaugetitle">
+            <button onclick={inc_weight(-2.0)}>{ "<<" }</button>
+            {"\u{00a0}DialGauge\u{00a0}"}
+            <button onclick={inc_weight(2.0)}>{ ">>" }</button>
+        </div>
+        <div class="gaugetitle">
+            <button onclick={inc_km(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}MetroGauge\u{00a0}"}
+            <button onclick={inc_km(5.0)}>{ ">>" }</button>
+        </div>
+        <div class="gaugetitle">
+            <button onclick={inc_humidity(-5.0)}>{ "<<" }</button>
+            {"\u{00a0}LiquidGauge\u{00a0}"}
+            <button onclick={inc_humidity(5.0)}>{ ">>" }</button>
+        </div>
+    </div>
+    <div class="gaugecontainer">
+        <div class="gaugestyle">{"Default gauges style"}</div>
+        <div>
+            <DialGauge value = { Some(weight) } pattern="Kg,3" title = "Weight" min = {40.0} max = {120.0} step = 2.0 step_label = 10.0/>
+        </div>
+        <div>
+            <MetroGauge value = { Some(km) } pattern="km/h,0" title = "Speedometer" min = {0.0} max = {120.0} />
+        </div>
+        <div>
+            <LiquidGauge value = { Some(humidity) } pattern="%,0" title = "Humidity" min = {0.0} max = {100.0} />
+        </div>
+    </div>
+    <div class="gaugecontainer gaugestyled">
+        <div class="gaugestyle">{"Styled gauges"}</div>
         <div>
             <DialGauge value = { Some(weight) } pattern="Kg,3" title = "Weight" min = {40.0} max = {120.0} step = 2.0 step_label = 10.0>
                 <Section start = 0.0 end = 10.0 />
@@ -152,6 +162,7 @@ fn app_component() -> Html {
         <div>
             <LiquidGauge value = { Some(humidity) } pattern="%,0" title = "Humidity" min = {0.0} max = {100.0} />
         </div>
+    </div>
     </div>
     </div>
     }
