@@ -61,7 +61,7 @@ fn app_component() -> Html {
     let (humidity, inc_humidity) = use_counter(60.0, 0.0, 100.0);
 
     html! {
-    <div>
+    <>
     <h1>{"HELLOGAUGES"}</h1>
     <div>{"Gauge Components for the Yew framework"}</div>
 
@@ -69,9 +69,9 @@ fn app_component() -> Html {
     <div class="gaugecontainer">
         <div></div>
         <div class="gaugetitle">
-            <button onclick={inc_counter(-1.0)}>{ "<" }</button>
+            <button onclick={inc_counter(-1.0)}>{ "<<" }</button>
             {"\u{00a0}CircularGauge\u{00a0}"}
-            <button onclick={inc_counter(1.0)}>{ ">" }</button>
+            <button onclick={inc_counter(1.0)}>{ ">>" }</button>
         </div>
         <div class="gaugetitle">
             <button onclick={inc_power(-2.0)}>{ "<<" }</button>
@@ -164,7 +164,7 @@ fn app_component() -> Html {
         </div>
     </div>
     </div>
-    </div>
+    </>
     }
 }
 #[wasm_bindgen(start)]
