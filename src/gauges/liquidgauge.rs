@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 use super::svgdraw;
+use quad_rand as qrand;
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
@@ -35,6 +36,8 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
     let r2 = 52.0;
     let centerx = 100i32;
     let centery = 65i32;
+
+    let id = (*use_state(|| qrand::rand())).to_string();
 
     let (html_indicator, formatvalue) = match props.value {
         Some(v) => (
@@ -56,8 +59,9 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
         None => (html! {}, String::new()),
     };
 
+    // // cargo expand
     // let clip_path = html! {
-    //   <clip-path id="cut-off-bottom">
+    //   <clip-path id={format!("cut-off-bottom-{}", id)}>
     //         { html_indicator }
     //   </clip-path>
     // };
@@ -71,7 +75,17 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
                     ::std::borrow::Cow::<'static, ::std::primitive::str>::Borrowed("clipPath"),
                     ::std::default::Default::default(),
                     ::std::option::Option::None,
-                    ::yew::virtual_dom::Attributes::Static(&[["id", "cut-off-bottom"]]),
+                    ::yew::virtual_dom::Attributes::Dynamic {
+                        keys: &["id"],
+                        values: ::std::boxed::Box::new([::yew::html::IntoPropValue::<
+                            ::std::option::Option<::yew::virtual_dom::AttrValue>,
+                        >::into_prop_value(
+                            {
+                            let res = format!("cut-off-bottom-{}", id);
+                            res
+                        }
+                        )]),
+                    },
                     ::yew::virtual_dom::listeners::Listeners::None,
                     ::yew::virtual_dom::VList::with_children(
                         {
@@ -110,7 +124,6 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
             </g>
             <g style="fill: #000000D9; font: bold 22px sans-serif;">
                 <text
-                    id="value1"
                     x={100}
                     y={65}
                     text-anchor="middle"
@@ -121,7 +134,6 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
             </g>
             <g style="fill: #0000008C; font: 10px sans-serif;">
                 <text
-                    id="title1"
                     x={100}
                     y={75}
                     text-anchor="middle"
@@ -131,38 +143,36 @@ pub fn liquid_gauge(props: &LiquidGaugeProps) -> Html {
                     { props.title.clone() }
                 </text>
             </g>
-            <g style="fill: #0000FF;">
-                <circle
-                    cx={centerx.to_string()}
-                    cy={centery.to_string()}
-                    r={r2.to_string()}
-                    class="liquidgauge-background"
-                    clip-path="url(#cut-off-bottom)"
-                />
-            </g>
-            <g style="fill: #FFFFFFE9; font: bold 22px sans-serif;">
-                <text
-                    x=100
-                    y=65
-                    text-anchor="middle"
-                    class="liquidgauge-value liquidgauge-value_2"
-                    clip-path="url(#cut-off-bottom)"
-                >
-                    { formatvalue }
-                </text>
-            </g>
-            <g style="fill: #FFFFFFAC; font: 10px sans-serif;">
-                <text
-                    id="title2"
-                    x={100}
-                    y={75}
-                    text-anchor="middle"
-                    dominant-baseline="hanging"
-                    class="liquidgauge-title liquidgauge-title_2"
-                    clip-path="url(#cut-off-bottom)"
-                >
-                    { props.title.clone() }
-                </text>
+            <g clip-path={format!("url(#cut-off-bottom-{})", id)}>
+                <g style="fill: #0000FF;">
+                    <circle
+                        cx={centerx.to_string()}
+                        cy={centery.to_string()}
+                        r={r2.to_string()}
+                        class="liquidgauge-background"
+                    />
+                </g>
+                <g style="fill: #FFFFFFE9; font: bold 22px sans-serif;">
+                    <text
+                        x=100
+                        y=65
+                        text-anchor="middle"
+                        class="liquidgauge-value liquidgauge-value_2"
+                    >
+                        { formatvalue }
+                    </text>
+                </g>
+                <g style="fill: #FFFFFFAC; font: 10px sans-serif;">
+                    <text
+                        x={100}
+                        y={75}
+                        text-anchor="middle"
+                        dominant-baseline="hanging"
+                        class="liquidgauge-title liquidgauge-title_2"
+                    >
+                        { props.title.clone() }
+                    </text>
+                </g>
             </g>
         </svg>
     }
